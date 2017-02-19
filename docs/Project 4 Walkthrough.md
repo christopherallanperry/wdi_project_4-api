@@ -6,13 +6,13 @@
 
 1. Add `firstname` and `last_name` to `user` model
 
-	```Bash
+	```bash
 	rails g migration AddFirst_nameAndLast_nameToUsers first_name:string 	last_name:string
 	```
 
 2. Migrate to schema
 
-	```Bash
+	```bash
 	rails db:migrate
 	```
 
@@ -20,9 +20,22 @@
 4. Successfully tested that additional fields can be populated, and are present in the database using Insomnia and Rails console
 5. Add new model for Surveys
 
-```Bash
-rails g model Survey title:string code:string user:references started:date finished:date
-```
+	```Bash
+	rails g model Survey title:string code:string 	user:references started:date finished:date
+	```
+6. Migrate to schema
+
+	```bash
+	rails db:drop db:create db:migrate
+	```
+
+7. Create controller for Surveys
+
+	```bash
+	rails g controller surveys index show create update destroy
+	```
+	
+
 
 
 	
