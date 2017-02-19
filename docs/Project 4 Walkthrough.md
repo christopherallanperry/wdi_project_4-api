@@ -21,7 +21,7 @@
 5. Add new model for Surveys
 
 ```Bash
-rails g model Survey survey_title:string survey_code:string survey_owner:references survey_admin:references start_date:date finish_date:date
+rails g model Survey title:string code:string user:references started:date finished:date
 ```
 
 
