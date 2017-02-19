@@ -1926,3 +1926,74 @@ Processing by SurveysController#show as */*
 Completed 200 OK in 3ms (Views: 1.6ms | ActiveRecord: 0.5ms)
 
 
+Started PUT "/surveys/3" for 127.0.0.1 at 2017-02-19 20:50:39 +0000
+Processing by SurveysController#update as */*
+  Parameters: {"survey"=>{"title"=>"This is Anne-Marie's other new survey", "code"=>"abd", "user_id"=>2, "started"=>"Fri, 16 Feb 2017 00:00:00 +0000", "finished"=>"Sat, 25 Feb 2017 00:00:00 +0000"}, "id"=>"3"}
+  [1m[36mSurvey Load (0.3ms)[0m  [1m[34mSELECT  "surveys".* FROM "surveys" WHERE "surveys"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  [1m[35mSQL (6.8ms)[0m  [1m[33mUPDATE "surveys" SET "user_id" = $1, "title" = $2, "code" = $3, "started" = $4, "finished" = $5, "updated_at" = $6 WHERE "surveys"."id" = $7[0m  [["user_id", 2], ["title", "This is Anne-Marie's other new survey"], ["code", "abd"], ["started", Thu, 16 Feb 2017], ["finished", Sat, 25 Feb 2017], ["updated_at", 2017-02-19 20:50:39 UTC], ["id", 3]]
+  [1m[35m (2.4ms)[0m  [1m[35mCOMMIT[0m
+[active_model_serializers] Rendered SurveySerializer with ActiveModelSerializers::Adapter::Attributes (3.81ms)
+Completed 200 OK in 38ms (Views: 6.6ms | ActiveRecord: 9.9ms)
+
+
+Started PUT "/surveys/1" for 127.0.0.1 at 2017-02-19 20:52:31 +0000
+Processing by SurveysController#update as */*
+  Parameters: {"survey"=>{"title"=>"This is Chris's first new survey", "code"=>"eadgbe", "user_id"=>1, "started"=>"Fri, 16 Feb 2017 00:00:00 +0000", "finished"=>"Sat, 25 Feb 2017 00:00:00 +0000"}, "id"=>"1"}
+  [1m[36mSurvey Load (0.3ms)[0m  [1m[34mSELECT  "surveys".* FROM "surveys" WHERE "surveys"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[33mUPDATE "surveys" SET "title" = $1, "code" = $2, "started" = $3, "finished" = $4, "updated_at" = $5 WHERE "surveys"."id" = $6[0m  [["title", "This is Chris's first new survey"], ["code", "eadgbe"], ["started", Thu, 16 Feb 2017], ["finished", Sat, 25 Feb 2017], ["updated_at", 2017-02-19 20:52:31 UTC], ["id", 1]]
+  [1m[35m (2.2ms)[0m  [1m[35mCOMMIT[0m
+[active_model_serializers] Rendered SurveySerializer with ActiveModelSerializers::Adapter::Attributes (0.57ms)
+Completed 200 OK in 9ms (Views: 1.3ms | ActiveRecord: 3.3ms)
+
+
+Started GET "/surveys" for 127.0.0.1 at 2017-02-19 20:52:41 +0000
+Processing by SurveysController#index as */*
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSurvey Load (0.3ms)[0m  [1m[34mSELECT "surveys".* FROM "surveys"[0m
+[active_model_serializers]   [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (12.98ms)
+Completed 200 OK in 17ms (Views: 14.8ms | ActiveRecord: 1.5ms)
+
+
+Started DELETE "/surveys/7" for 127.0.0.1 at 2017-02-19 20:56:13 +0000
+Processing by SurveysController#destroy as */*
+  Parameters: {"id"=>"7"}
+  [1m[36mSurvey Load (0.3ms)[0m  [1m[34mSELECT  "surveys".* FROM "surveys" WHERE "surveys"."id" = $1 LIMIT $2[0m  [["id", 7], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[31mDELETE FROM "surveys" WHERE "surveys"."id" = $1[0m  [["id", 7]]
+  [1m[35m (2.2ms)[0m  [1m[35mCOMMIT[0m
+Completed 204 No Content in 5ms (ActiveRecord: 2.9ms)
+
+
+Started GET "/surveys" for 127.0.0.1 at 2017-02-19 20:56:21 +0000
+Processing by SurveysController#index as */*
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSurvey Load (0.3ms)[0m  [1m[34mSELECT "surveys".* FROM "surveys"[0m
+[active_model_serializers]   [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (12.02ms)
+Completed 200 OK in 14ms (Views: 12.9ms | ActiveRecord: 1.3ms)
+
+

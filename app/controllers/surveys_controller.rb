@@ -23,9 +23,15 @@ class SurveysController < ApplicationController
   end
 
   def update
+    if @survey.update(survey_params)
+      render json: @survey
+    else
+      render json: @survey.errors, status: :unprocessable_entity
+    end
   end
 
   def destroy
+    @survey.destroy
   end
 
   private
