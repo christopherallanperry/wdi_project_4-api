@@ -21,7 +21,7 @@
 5. Add new model for Surveys
 
 	```Bash
-	rails g model Survey title:string code:string 	user:references started:date finished:date
+	rails g model Survey title:string code:string user:references started:date finished:date
 	```
 6. Migrate to schema
 
@@ -105,7 +105,21 @@ end
 	```
 
 10. Created seeds.db with content for users and surveys
+11. Scaffold out new model for Questions
+
+	```bash
+	rails g scaffold Question question_type:string question_text:text survey:references
+	```
+
+12. Migrate to schema
+ 
+	```bash
+	rails db:migrate
+	```
 	
+13. 
+
+
 
 
 	
