@@ -4,7 +4,6 @@ u3 = User.create!(email: "tony@tony.com", password: "password",  first_name: "To
 u4 = User.create!(email: "sam@sam.com", password: "password",  first_name: "Sam", last_name: "Williams")
 u5 = User.create!(email: "helen@helen.com", password: "password",  first_name: "Helen", last_name: "Davies")
 
-
 s1 = u1.surveys.create!(title: "This is the first question", code: "EADGB", user_id: 1, started: "Fri, 17 Feb 2017 00:00:00 +0000", finished: "Sat, 25 Feb 2017 00:00:00 +0000")
 s2 = u2.surveys.create!(title: "This is the second", code: "xyz", user_id: 2, started: "Fri, 17 Feb 2017 00:00:00 +0000", finished: "Sat, 25 Feb 2017 00:00:00 +0000")
 s3 = u1.surveys.create!(title: "And the third", code: "abcd", user_id: 1, started: "Fri, 17 Feb 2017 00:00:00 +0000", finished: "Sat, 25 Feb 2017 00:00:00 +0000")
@@ -35,3 +34,8 @@ a9 = q6.answers.create!(question_id: 6, response: "5")
 a10 = q6.answers.create!(question_id: 6, response: "4")
 a11 = q6.answers.create!(question_id: 6, response: "4")
 a12 = q6.answers.create!(question_id: 6, response: "2")
+
+c1 = u1.completions.create!(user_id: 1, survey_id: 1, question_id: 1, survey_completed: false, question_answered: true)
+c1 = u1.completions.create!(user_id: 1, survey_id: 1, question_id: 6, survey_completed: false, question_answered: true)
+c2 = u2.completions.create!(user_id: 2, survey_id: 1, question_id: 1, survey_completed: false, question_answered: true)
+c2 = u2.completions.create!(user_id: 2, survey_id: 1, question_id: 6, survey_completed: false, question_answered: true)

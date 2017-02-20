@@ -1,7 +1,8 @@
 # Project 4 Walkthrough
 ----
 #### Created: 18 February 2017 13:46
-#### Last Updated: 18 February 2017 13:46
+#### Last Updated: 20 February 2017 10:15
+
 ----
 
 1. Add `firstname` and `last_name` to `user` model

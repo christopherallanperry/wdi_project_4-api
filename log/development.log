@@ -2843,3 +2843,293 @@ FOREIGN KEY ("question_id")
   [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
   [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_advisory_unlock(8219427338635073085)[0m
   [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (1.0ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.7ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", :environment]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", :environment]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.2ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1[0m  [["key", :environment]]
+  [1m[35m (129.7ms)[0m  [1m[35mDROP DATABASE IF EXISTS "wdi_project_4-api_development"[0m
+  [1m[35m (126.5ms)[0m  [1m[35mDROP DATABASE IF EXISTS "wdi_project_4-api_test"[0m
+  [1m[35m (333.6ms)[0m  [1m[35mCREATE DATABASE "wdi_project_4-api_development" ENCODING = 'unicode'[0m
+  [1m[35m (251.3ms)[0m  [1m[35mCREATE DATABASE "wdi_project_4-api_test" ENCODING = 'unicode'[0m
+  [1m[35m (14.2ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying PRIMARY KEY)[0m
+  [1m[35m (10.7ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35m (0.4ms)[0m  [1m[34mSELECT pg_try_advisory_lock(8219427338635073085);[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateUsers (20170216121216)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (10.7ms)[0m  [1m[35mCREATE TABLE "users" ("id" serial primary key, "email" character varying, "password_digest" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170216121216"]]
+  [1m[35m (2.3ms)[0m  [1m[35mCOMMIT[0m
+Migrating to AddFirstNameAndLastNameToUsers (20170218135306)
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (0.9ms)[0m  [1m[35mALTER TABLE "users" ADD "first_name" character varying[0m
+  [1m[35m (0.4ms)[0m  [1m[35mALTER TABLE "users" ADD "last_name" character varying[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170218135306"]]
+  [1m[35m (2.3ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateSurveys (20170219155751)
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (10.6ms)[0m  [1m[35mCREATE TABLE "surveys" ("id" serial primary key, "title" character varying, "code" character varying, "user_id" integer, "started" date, "finished" date, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, CONSTRAINT "fk_rails_2a50b6eb90"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+)[0m
+  [1m[35m (2.7ms)[0m  [1m[35mCREATE  INDEX  "index_surveys_on_user_id" ON "surveys"  ("user_id")[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170219155751"]]
+  [1m[35m (2.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateQuestions (20170219213941)
+  [1m[35m (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (9.4ms)[0m  [1m[35mCREATE TABLE "questions" ("id" serial primary key, "question_type" character varying NOT NULL, "question_text" text NOT NULL, "survey_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, CONSTRAINT "fk_rails_15f8f0ec98"
+FOREIGN KEY ("survey_id")
+  REFERENCES "surveys" ("id")
+)[0m
+  [1m[35m (2.8ms)[0m  [1m[35mCREATE  INDEX  "index_questions_on_survey_id" ON "questions"  ("survey_id")[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170219213941"]]
+  [1m[35m (2.3ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateAnswers (20170220092231)
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (10.4ms)[0m  [1m[35mCREATE TABLE "answers" ("id" serial primary key, "response" text, "question_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, CONSTRAINT "fk_rails_3d5ed4418f"
+FOREIGN KEY ("question_id")
+  REFERENCES "questions" ("id")
+)[0m
+  [1m[35m (2.8ms)[0m  [1m[35mCREATE  INDEX  "index_answers_on_question_id" ON "answers"  ("question_id")[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170220092231"]]
+  [1m[35m (2.5ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateCompletions (20170220100705)
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (7.2ms)[0m  [1m[35mCREATE TABLE "completions" ("id" serial primary key, "user_id" integer, "survey_id" integer, "question_id" integer, "survey_completed" boolean, "question_answered" boolean, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, CONSTRAINT "fk_rails_1b5adf23d7"
+FOREIGN KEY ("user_id")
+  REFERENCES "users" ("id")
+, CONSTRAINT "fk_rails_0aa9b78a6f"
+FOREIGN KEY ("survey_id")
+  REFERENCES "surveys" ("id")
+, CONSTRAINT "fk_rails_3b678444f3"
+FOREIGN KEY ("question_id")
+  REFERENCES "questions" ("id")
+)[0m
+  [1m[35m (2.5ms)[0m  [1m[35mCREATE  INDEX  "index_completions_on_user_id" ON "completions"  ("user_id")[0m
+  [1m[35m (3.2ms)[0m  [1m[35mCREATE  INDEX  "index_completions_on_survey_id" ON "completions"  ("survey_id")[0m
+  [1m[35m (2.7ms)[0m  [1m[35mCREATE  INDEX  "index_completions_on_question_id" ON "completions"  ("question_id")[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20170220100705"]]
+  [1m[35m (2.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", :environment], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", 2017-02-20 10:52:21 UTC], ["updated_at", 2017-02-20 10:52:21 UTC]]
+  [1m[35m (2.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  [1m[34mSELECT pg_advisory_unlock(8219427338635073085)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (0.7ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "chris@chris.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "users" ("email", "password_digest", "created_at", "updated_at", "first_name", "last_name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["email", "chris@chris.com"], ["password_digest", "$2a$10$ClYj.L5j7BFhE5vBOjZRLOY8KgbkdqrYle6n.KtzntIwtezJwuQP6"], ["created_at", 2017-02-20 10:52:21 UTC], ["updated_at", 2017-02-20 10:52:21 UTC], ["first_name", "Chris"], ["last_name", "Perry"]]
+  [1m[35m (2.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "anne-marie@anne-marie.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "users" ("email", "password_digest", "created_at", "updated_at", "first_name", "last_name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["email", "anne-marie@anne-marie.com"], ["password_digest", "$2a$10$7lLCT72k0ifj.ZE0/0OLgOdUY9W6OIiAyIIzHWNLdIzBaIldEAt2S"], ["created_at", 2017-02-20 10:52:21 UTC], ["updated_at", 2017-02-20 10:52:21 UTC], ["first_name", "Anne-Marie"], ["last_name", "Perry"]]
+  [1m[35m (2.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "tony@tony.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "users" ("email", "password_digest", "created_at", "updated_at", "first_name", "last_name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["email", "tony@tony.com"], ["password_digest", "$2a$10$9dDezKBtDAm844b2FaHQb.oWF6Hx1NtMCjKigyMoEnghEkNRcx2Wu"], ["created_at", 2017-02-20 10:52:21 UTC], ["updated_at", 2017-02-20 10:52:21 UTC], ["first_name", "Tony"], ["last_name", "Eccles"]]
+  [1m[35m (3.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "sam@sam.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "users" ("email", "password_digest", "created_at", "updated_at", "first_name", "last_name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["email", "sam@sam.com"], ["password_digest", "$2a$10$1HJC/35rLTCALUBBRF7gwOsVeKI9zSFm4nTEeMLMtrTHzgnAl7ury"], ["created_at", 2017-02-20 10:52:21 UTC], ["updated_at", 2017-02-20 10:52:21 UTC], ["first_name", "Sam"], ["last_name", "Williams"]]
+  [1m[35m (2.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mUser Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "helen@helen.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "users" ("email", "password_digest", "created_at", "updated_at", "first_name", "last_name") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["email", "helen@helen.com"], ["password_digest", "$2a$10$SEgU4k/9KzCho32yLbHy1OSWXbGwZwOdn8ckV4FI.FjmjiFB/IPcm"], ["created_at", 2017-02-20 10:52:22 UTC], ["updated_at", 2017-02-20 10:52:22 UTC], ["first_name", "Helen"], ["last_name", "Davies"]]
+  [1m[35m (2.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.2ms)[0m  [1m[32mINSERT INTO "surveys" ("title", "code", "user_id", "started", "finished", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["title", "This is the first question"], ["code", "EADGB"], ["user_id", 1], ["started", Fri, 17 Feb 2017], ["finished", Sat, 25 Feb 2017], ["created_at", 2017-02-20 10:52:22 UTC], ["updated_at", 2017-02-20 10:52:22 UTC]]
+  [1m[35m (1.9ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "surveys" ("title", "code", "user_id", "started", "finished", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["title", "This is the second"], ["code", "xyz"], ["user_id", 2], ["started", Fri, 17 Feb 2017], ["finished", Sat, 25 Feb 2017], ["created_at", 2017-02-20 10:52:22 UTC], ["updated_at", 2017-02-20 10:52:22 UTC]]
+  [1m[35m (2.5ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "surveys" ("title", "code", "user_id", "started", "finished", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["title", "And the third"], ["code", "abcd"], ["user_id", 1], ["started", Fri, 17 Feb 2017], ["finished", Sat, 25 Feb 2017], ["created_at", 2017-02-20 10:52:22 UTC], ["updated_at", 2017-02-20 10:52:22 UTC]]
+  [1m[35m (2.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "surveys" ("title", "code", "user_id", "started", "finished", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["title", "Are we going on a photo walk?"], ["code", "rem"], ["user_id", 3], ["started", Fri, 17 Feb 2017], ["finished", Sat, 25 Feb 2017], ["created_at", 2017-02-20 10:52:22 UTC], ["updated_at", 2017-02-20 10:52:22 UTC]]
+  [1m[35m (2.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.8ms)[0m  [1m[32mINSERT INTO "surveys" ("title", "code", "user_id", "started", "finished", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["title", "Is there cheese involved?"], ["code", "acme001"], ["user_id", 4], ["started", Fri, 17 Feb 2017], ["finished", Sat, 25 Feb 2017], ["created_at", 2017-02-20 10:52:22 UTC], ["updated_at", 2017-02-20 10:52:22 UTC]]
+  [1m[35m (2.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "surveys" ("title", "code", "user_id", "started", "finished", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["title", "When do we all want to go"], ["code", "YYZ"], ["user_id", 5], ["started", Fri, 17 Feb 2017], ["finished", Sat, 25 Feb 2017], ["created_at", 2017-02-20 10:52:22 UTC], ["updated_at", 2017-02-20 10:52:22 UTC]]
+  [1m[35m (2.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[32mINSERT INTO "questions" ("question_type", "question_text", "survey_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["question_type", "text"], ["question_text", "What would you like to do next?"], ["survey_id", 1], ["created_at", 2017-02-20 10:52:22 UTC], ["updated_at", 2017-02-20 10:52:22 UTC]]
+  [1m[35m (2.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "questions" ("question_type", "question_text", "survey_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["question_type", "text"], ["question_text", "How would you like to do it?"], ["survey_id", 1], ["created_at", 2017-02-20 10:52:22 UTC], ["updated_at", 2017-02-20 10:52:22 UTC]]
+  [1m[35m (2.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "questions" ("question_type", "question_text", "survey_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["question_type", "text"], ["question_text", "Would you prefer it with bells on?"], ["survey_id", 1], ["created_at", 2017-02-20 10:52:22 UTC], ["updated_at", 2017-02-20 10:52:22 UTC]]
+  [1m[35m (2.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "questions" ("question_type", "question_text", "survey_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["question_type", "text"], ["question_text", "Should I slow down?"], ["survey_id", 1], ["created_at", 2017-02-20 10:52:22 UTC], ["updated_at", 2017-02-20 10:52:22 UTC]]
+  [1m[35m (2.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "questions" ("question_type", "question_text", "survey_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["question_type", "text"], ["question_text", "Or speed up?"], ["survey_id", 1], ["created_at", 2017-02-20 10:52:22 UTC], ["updated_at", 2017-02-20 10:52:22 UTC]]
+  [1m[35m (2.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "questions" ("question_type", "question_text", "survey_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["question_type", "integer"], ["question_text", "What would you like to do next?"], ["survey_id", 2], ["created_at", 2017-02-20 10:52:22 UTC], ["updated_at", 2017-02-20 10:52:22 UTC]]
+  [1m[35m (2.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "questions" ("question_type", "question_text", "survey_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["question_type", "integer"], ["question_text", "How would you like to do it?"], ["survey_id", 2], ["created_at", 2017-02-20 10:52:22 UTC], ["updated_at", 2017-02-20 10:52:22 UTC]]
+  [1m[35m (2.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "questions" ("question_type", "question_text", "survey_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["question_type", "integer"], ["question_text", "Would you prefer it with bells on?"], ["survey_id", 2], ["created_at", 2017-02-20 10:52:22 UTC], ["updated_at", 2017-02-20 10:52:22 UTC]]
+  [1m[35m (2.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "questions" ("question_type", "question_text", "survey_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["question_type", "integer"], ["question_text", "Should I slow down?"], ["survey_id", 2], ["created_at", 2017-02-20 10:52:22 UTC], ["updated_at", 2017-02-20 10:52:22 UTC]]
+  [1m[35m (2.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "questions" ("question_type", "question_text", "survey_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["question_type", "integer"], ["question_text", "Or speed up?"], ["survey_id", 2], ["created_at", 2017-02-20 10:52:22 UTC], ["updated_at", 2017-02-20 10:52:22 UTC]]
+  [1m[35m (2.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[32mINSERT INTO "answers" ("response", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["response", "This is 1st response to Q2"], ["question_id", 1], ["created_at", 2017-02-20 10:52:22 UTC], ["updated_at", 2017-02-20 10:52:22 UTC]]
+  [1m[35m (2.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "answers" ("response", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["response", "This is 2nd response to Q1"], ["question_id", 1], ["created_at", 2017-02-20 10:52:22 UTC], ["updated_at", 2017-02-20 10:52:22 UTC]]
+  [1m[35m (2.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "answers" ("response", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["response", "This is 3rd response to Q1"], ["question_id", 1], ["created_at", 2017-02-20 10:52:22 UTC], ["updated_at", 2017-02-20 10:52:22 UTC]]
+  [1m[35m (2.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "answers" ("response", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["response", "This is 4th response to Q1"], ["question_id", 1], ["created_at", 2017-02-20 10:52:22 UTC], ["updated_at", 2017-02-20 10:52:22 UTC]]
+  [1m[35m (2.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "answers" ("response", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["response", "This is 5th response to Q1"], ["question_id", 1], ["created_at", 2017-02-20 10:52:22 UTC], ["updated_at", 2017-02-20 10:52:22 UTC]]
+  [1m[35m (2.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "answers" ("response", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["response", "This is 6th response to Q1"], ["question_id", 1], ["created_at", 2017-02-20 10:52:22 UTC], ["updated_at", 2017-02-20 10:52:22 UTC]]
+  [1m[35m (2.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "answers" ("response", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["response", "3"], ["question_id", 6], ["created_at", 2017-02-20 10:52:22 UTC], ["updated_at", 2017-02-20 10:52:22 UTC]]
+  [1m[35m (2.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "answers" ("response", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["response", "4"], ["question_id", 6], ["created_at", 2017-02-20 10:52:22 UTC], ["updated_at", 2017-02-20 10:52:22 UTC]]
+  [1m[35m (2.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "answers" ("response", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["response", "5"], ["question_id", 6], ["created_at", 2017-02-20 10:52:22 UTC], ["updated_at", 2017-02-20 10:52:22 UTC]]
+  [1m[35m (2.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "answers" ("response", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["response", "4"], ["question_id", 6], ["created_at", 2017-02-20 10:52:22 UTC], ["updated_at", 2017-02-20 10:52:22 UTC]]
+  [1m[35m (2.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "answers" ("response", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["response", "4"], ["question_id", 6], ["created_at", 2017-02-20 10:52:22 UTC], ["updated_at", 2017-02-20 10:52:22 UTC]]
+  [1m[35m (2.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "answers" ("response", "question_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["response", "2"], ["question_id", 6], ["created_at", 2017-02-20 10:52:22 UTC], ["updated_at", 2017-02-20 10:52:22 UTC]]
+  [1m[35m (2.4ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (1.3ms)[0m  [1m[32mINSERT INTO "completions" ("user_id", "survey_id", "question_id", "survey_completed", "question_answered", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["user_id", 1], ["survey_id", 1], ["question_id", 1], ["survey_completed", false], ["question_answered", true], ["created_at", 2017-02-20 10:52:22 UTC], ["updated_at", 2017-02-20 10:52:22 UTC]]
+  [1m[35m (2.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "completions" ("user_id", "survey_id", "question_id", "survey_completed", "question_answered", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["user_id", 1], ["survey_id", 1], ["question_id", 6], ["survey_completed", false], ["question_answered", true], ["created_at", 2017-02-20 10:52:22 UTC], ["updated_at", 2017-02-20 10:52:22 UTC]]
+  [1m[35m (2.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "completions" ("user_id", "survey_id", "question_id", "survey_completed", "question_answered", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["user_id", 2], ["survey_id", 1], ["question_id", 1], ["survey_completed", false], ["question_answered", true], ["created_at", 2017-02-20 10:52:22 UTC], ["updated_at", 2017-02-20 10:52:22 UTC]]
+  [1m[35m (2.2ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "completions" ("user_id", "survey_id", "question_id", "survey_completed", "question_answered", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["user_id", 2], ["survey_id", 1], ["question_id", 6], ["survey_completed", false], ["question_answered", true], ["created_at", 2017-02-20 10:52:22 UTC], ["updated_at", 2017-02-20 10:52:22 UTC]]
+  [1m[35m (2.2ms)[0m  [1m[35mCOMMIT[0m
+Started GET "/answers/13" for 127.0.0.1 at 2017-02-20 10:53:04 +0000
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by AnswersController#show as */*
+  Parameters: {"id"=>"13", "answer"=>{}}
+  [1m[36mAnswer Load (0.4ms)[0m  [1m[34mSELECT  "answers".* FROM "answers" WHERE "answers"."id" = $1 LIMIT $2[0m  [["id", 13], ["LIMIT", 1]]
+Completed 404 Not Found in 11ms (ActiveRecord: 9.5ms)
+
+
+  
+ActiveRecord::RecordNotFound (Couldn't find Answer with 'id'=13):
+  
+app/controllers/answers_controller.rb:45:in `set_answer'
+Started GET "/answers/12" for 127.0.0.1 at 2017-02-20 10:53:14 +0000
+Processing by AnswersController#show as */*
+  Parameters: {"id"=>"12", "answer"=>{}}
+  [1m[36mAnswer Load (0.8ms)[0m  [1m[34mSELECT  "answers".* FROM "answers" WHERE "answers"."id" = $1 LIMIT $2[0m  [["id", 12], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mQuestion Load (0.5ms)[0m  [1m[34mSELECT  "questions".* FROM "questions" WHERE "questions"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered AnswerSerializer with ActiveModelSerializers::Adapter::Attributes (40.19ms)
+Completed 200 OK in 98ms (Views: 84.1ms | ActiveRecord: 7.8ms)
+
+
+Started GET "/surveys" for 127.0.0.1 at 2017-02-20 10:53:37 +0000
+Processing by SurveysController#index as */*
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mSurvey Load (0.5ms)[0m  [1m[34mSELECT "surveys".* FROM "surveys"[0m
+[active_model_serializers]   [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 3], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 4], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 5], ["LIMIT", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (20.19ms)
+Completed 200 OK in 55ms (Views: 42.5ms | ActiveRecord: 8.4ms)
+
+
+Started GET "/questions" for 127.0.0.1 at 2017-02-20 10:53:42 +0000
+Processing by QuestionsController#index as */*
+  [1m[36mQuestion Load (0.4ms)[0m  [1m[34mSELECT "questions".* FROM "questions"[0m
+[active_model_serializers]   [1m[36mSurvey Load (0.3ms)[0m  [1m[34mSELECT  "surveys".* FROM "surveys" WHERE "surveys"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "surveys".* FROM "surveys" WHERE "surveys"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "surveys".* FROM "surveys" WHERE "surveys"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "surveys".* FROM "surveys" WHERE "surveys"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "surveys".* FROM "surveys" WHERE "surveys"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mSurvey Load (0.4ms)[0m  [1m[34mSELECT  "surveys".* FROM "surveys" WHERE "surveys"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "surveys".* FROM "surveys" WHERE "surveys"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "surveys".* FROM "surveys" WHERE "surveys"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "surveys".* FROM "surveys" WHERE "surveys"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "surveys".* FROM "surveys" WHERE "surveys"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (24.66ms)
+Completed 200 OK in 28ms (Views: 25.9ms | ActiveRecord: 1.2ms)
+
+
+Started GET "/answers" for 127.0.0.1 at 2017-02-20 10:53:49 +0000
+Processing by AnswersController#index as */*
+  [1m[36mAnswer Load (0.4ms)[0m  [1m[34mSELECT "answers".* FROM "answers"[0m
+[active_model_serializers]   [1m[36mQuestion Load (0.3ms)[0m  [1m[34mSELECT  "questions".* FROM "questions" WHERE "questions"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "questions".* FROM "questions" WHERE "questions"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "questions".* FROM "questions" WHERE "questions"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "questions".* FROM "questions" WHERE "questions"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "questions".* FROM "questions" WHERE "questions"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "questions".* FROM "questions" WHERE "questions"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mQuestion Load (0.3ms)[0m  [1m[34mSELECT  "questions".* FROM "questions" WHERE "questions"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "questions".* FROM "questions" WHERE "questions"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "questions".* FROM "questions" WHERE "questions"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "questions".* FROM "questions" WHERE "questions"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "questions".* FROM "questions" WHERE "questions"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "questions".* FROM "questions" WHERE "questions"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (11.87ms)
+Completed 200 OK in 15ms (Views: 13.1ms | ActiveRecord: 1.2ms)
+
+
+Started GET "/completions" for 127.0.0.1 at 2017-02-20 10:54:31 +0000
+Processing by CompletionsController#index as */*
+[active_model_serializers] Rendered ActiveModel::Serializer::Null with Hash (0.22ms)
+Filter chain halted as :authenticate_user! rendered or redirected
+Completed 401 Unauthorized in 7ms (Views: 6.3ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/completions" for 127.0.0.1 at 2017-02-20 10:55:55 +0000
+Processing by CompletionsController#index as */*
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCompletion Load (0.8ms)[0m  [1m[34mSELECT "completions".* FROM "completions"[0m
+[active_model_serializers]   [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mSurvey Load (0.4ms)[0m  [1m[34mSELECT  "surveys".* FROM "surveys" WHERE "surveys"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mQuestion Load (0.3ms)[0m  [1m[34mSELECT  "questions".* FROM "questions" WHERE "questions"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "surveys".* FROM "surveys" WHERE "surveys"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mQuestion Load (0.3ms)[0m  [1m[34mSELECT  "questions".* FROM "questions" WHERE "questions"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "surveys".* FROM "surveys" WHERE "surveys"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "questions".* FROM "questions" WHERE "questions"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "surveys".* FROM "surveys" WHERE "surveys"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+[active_model_serializers]   [1m[36mCACHE (0.0ms)[0m  [1m[34mSELECT  "questions".* FROM "questions" WHERE "questions"."id" = $1 LIMIT $2[0m  [["id", 6], ["LIMIT", 1]]
+[active_model_serializers] Rendered ActiveModel::Serializer::CollectionSerializer with ActiveModelSerializers::Adapter::Attributes (23.63ms)
+Completed 200 OK in 44ms (Views: 32.4ms | ActiveRecord: 5.9ms)
+
+
