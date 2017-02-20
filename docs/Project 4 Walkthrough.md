@@ -117,7 +117,13 @@ end
 	rails db:migrate
 	```
 	
-13. 
+13. Scaffold out new model for Answers
+
+```bash
+	rails g scaffold Answer response:text question:references
+	```
+
+
 
 
 
