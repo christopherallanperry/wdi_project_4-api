@@ -92,7 +92,7 @@ _Created in Edraw Max on 30-day trial version_
 - Postgres
 - Rails (API)
 - BCrypt
-- Active_Model_Serialzers
+- Active\_Model\_Serializers
 
 ## Front-end Tools/Libraries
 - Angular

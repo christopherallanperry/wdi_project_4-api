@@ -117,13 +117,28 @@ end
 	rails db:migrate
 	```
 	
-13. Scaffold out new model for Answers
+13. Added `has_many :questions` relationship to survey model 
+14. Scaffold out new model for Answers
 
-```bash
+	```bash
 	rails g scaffold Answer response:text question:references
 	```
 
+15. Migrate to schema
+ 
+	```bash
+	rails db:migrate
+	```
 
+16. Added `has_many answers` relationship to question model
+17. Expanded seeds data file to include sample responses
+18. Scaffold out new model for Completions
+
+	```bash
+	rails g scaffold Completion user:references survey:references question:references survey_completed:boolean question_answered:boolean
+	```
+
+19. Added `has_many :completions` relationships to user, survey and question models
 
 
 
