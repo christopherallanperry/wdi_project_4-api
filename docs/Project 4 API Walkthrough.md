@@ -140,6 +140,7 @@ end
 	```
 
 19. Added `has_many :completions` relationships to user, survey and question models
+20. 20. Updated seeds file with completion data.
 
 
 

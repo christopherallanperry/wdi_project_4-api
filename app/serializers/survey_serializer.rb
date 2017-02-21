@@ -1,7 +1,7 @@
 class SurveySerializer < ActiveModel::Serializer
   attributes :id, :title, :code, :user_id, :started, :finished
   has_one :user
-
+  has_many :questions
   def length
     object.body.length
   end
