@@ -12,7 +12,7 @@ class SurveysController < ApplicationController
   end
 
   def create
-    @survey = current_user.surveys.new(survey_params)
+    @survey = @current_user.surveys.new(survey_params)
 
     if @survey.save
       render json: @survey, status: :created, location: @survey

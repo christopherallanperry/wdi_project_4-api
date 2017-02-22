@@ -15,7 +15,7 @@ class AnswersController < ApplicationController
 
   # POST /answers
   def create
-    @answer = Answer.new(answer_params)
+    @answer = @current_user.answers.new(answer_params)
 
     if @answer.save
       render json: @answer, status: :created, location: @answer
