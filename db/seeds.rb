@@ -21,7 +21,7 @@ u20 = User.create!(email: "ismael@wdi24.com", password: "password", first_name: 
 u21 = User.create!(email: "luca@wdi24.com", password: "password", first_name: "Luca", last_name: "Scanu")
 u22 = User.create!(email: "hudhayfa@wdi24.com", password: "password", first_name: "Hudhayfa", last_name: "Jamalkhan")
 u23 = User.create!(email: "james@wdi24.com", password: "password", first_name: "James", last_name: "Bremner")
-u24 = User.create!(email: "jamie@wdi24.com", password: "password", first_name: "Jamie", last_name: "???")
+u24 = User.create!(email: "jamie@wdi24.com", password: "password", first_name: "Jamie", last_name: "Grantham-Burton")
 u25 = User.create!(email: "jean-marc@wdi24.com", password: "password", first_name: "Jean-Marc", last_name: "McGhee")
 u26 = User.create!(email: "ragini@wdi24.com", password: "password", first_name: "Ragini", last_name: "Dua")
 u27 = User.create!(email: "ali@wdi24.com", password: "password", first_name: "Ali", last_name: "Molloy")
@@ -39,7 +39,6 @@ u38 = User.create!(email: "laura@wdi24.com", password: "password", first_name: "
 u39 = User.create!(email: "callum@wdi24.com", password: "password", first_name: "Callum", last_name: "Goodwilliam")
 
 s1 = u1.surveys.create!(title: "This is the first survey", code: "EADGB", user_id: 1, started: "Fri, 17 Feb 2017 00:00:00 +0000", finished: "Sat, 25 Feb 2017 00:00:00 +0000")
-
 
 q1 = s1.questions.create!(question_type: "text", question_text: "What would you like to do next?")
 q2 = s1.questions.create!(question_type: "integer", question_text: "The WDI course at GA is an excellent investment")
