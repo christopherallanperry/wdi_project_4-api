@@ -19,14 +19,15 @@ class Survey < ApplicationRecord
         h[e] += 1
       end
       {
-        labels: ['Strongly Disagree', 'Somewhat Disagree', 'Neither Agree or Disagree', 'Somewhat Agree', 'Strongly Agree', 'N/A'],
+        labels: ['Strongly Disagree', 'Somewhat Disagree', 'Neutral', 'Somewhat Agree', 'Strongly Agree', 'N/A'],
         data: [
           integer_answers.fetch('1', 0),
           integer_answers.fetch('2', 0),
           integer_answers.fetch('3', 0),
           integer_answers.fetch('4', 0),
           integer_answers.fetch('5', 0),
-          integer_answers.fetch('6', 0)
+          integer_answers.fetch('6', 0),
+          integer_answers.fetch('7', 0)
         ]
       }
     when 'boolean'
