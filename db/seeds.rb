@@ -1,3 +1,7 @@
+User.destroy_all
+Question.destroy_all
+Answer.destroy_all
+
 u1 = User.create!(email: "chris@wdi24.com", password: "password", first_name: "Chris", last_name: "Perry")
 u2 = User.create!(email: "alex@wdi24.com", password: "password", first_name: "Alex", last_name: "Chin")
 u3 = User.create!(email: "rane@wdi24.com", password: "password", first_name: "Rane", last_name: "Gowan")
@@ -31,8 +35,6 @@ u30 = User.create!(email: "ed@wdi24.com", password: "password", first_name: "Ed"
 u31 = User.create!(email: "ebere@wdi24.com", password: "password", first_name: "Ebere", last_name: "Nwoko")
 u32 = User.create!(email: "johnnie@wdi24.com", password: "password", first_name: "Johnnie", last_name: "de La Moriniere")
 u33 = User.create!(email: "steph@wdi24.com", password: "password", first_name: "Steph", last_name: "Robinson")
-u34 = User.create!(email: "steph@wdi24.com", password: "password", first_name: "Natalie", last_name: "Huitson")
-u35 = User.create!(email: "steph@wdi24.com", password: "password", first_name: "Alfredo", last_name: "Maria Milano")
 u36 = User.create!(email: "casey@wdi24.com", password: "password", first_name: "Casey", last_name: "Nailer")
 u37 = User.create!(email: "lauren@wdi24.com", password: "password", first_name: "Lauren", last_name: "Thomas")
 u38 = User.create!(email: "laura@wdi24.com", password: "password", first_name: "Laura", last_name: "Hasting")
