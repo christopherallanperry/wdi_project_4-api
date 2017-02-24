@@ -2,7 +2,7 @@ User.destroy_all
 Question.destroy_all
 Answer.destroy_all
 
-u1 = User.create!(email: "chris@wdi24.com", password: "password", first_name: "Chris", last_name: "Perry")
+u1 = User.create!(email: "chris@wdi24.com", password: "password", first_name: "Chris", last_name: "Perry", image: "chris.jpg")
 u2 = User.create!(email: "alex@wdi24.com", password: "password", first_name: "Alex", last_name: "Chin")
 u3 = User.create!(email: "rane@wdi24.com", password: "password", first_name: "Rane", last_name: "Gowan")
 u4 = User.create!(email: "remyce@wdi24.com", password: "password", first_name: "Remyce", last_name: "Wilson")
